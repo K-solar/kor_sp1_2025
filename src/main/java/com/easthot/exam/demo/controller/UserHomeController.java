@@ -12,9 +12,15 @@ import com.easthot.exam.vo.Article;
 @Controller
 public class UserHomeController {
 	
+	private int count = -1;
+	
+
+	
 	private int id;
 	private String title;
 	private String body;
+	
+	
 	
 	
 	@RequestMapping("/usr/home/main")
@@ -24,20 +30,39 @@ public class UserHomeController {
 		
 	}
 	
-	@RequestMapping("/usr/home/getArticles")
+	@RequestMapping("/usr/home/getCount")
 	@ResponseBody
-	public List<Article> getArticle() {
-		
-		Article article1 = new Article(1, "제목1", "내용1");
-		Article article2 = new Article(2, "제목2", "내용2");
-		List<String> list = new ArrayList<>();
-		
-		list.add(article1);
-		list.add(article2);
-		
-		return list;
+	public int getCount() {
+		count++ ;
+		return count;
 		
 	}
+	
+	@RequestMapping("/usr/home/doSetCount")
+	@ResponseBody
+	public String doSetCount() {
+		
+		return "count의 값이 " + (this.count + 1) + "으로 초기화 되었습니다.";
+		
+	}	
+	
+
+	 @RequestMapping("/usr/home/getArticles")
+	 @ResponseBody 
+	 public List<Article> getArticle() {
+	
+	 Article article1 = new Article(1, "제목1", "내용1"); 
+	 Article article2 = new Article(2, "제목2", "내용2");
+	 
+	 List<Article> list = new ArrayList<>(); 
+	 
+	 list.add(article1); 
+	 list.add(article2);
+	 
+	 return list;
+	 
+	 }
+
 	
 	
 
