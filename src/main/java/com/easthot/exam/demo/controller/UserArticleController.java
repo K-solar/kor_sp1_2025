@@ -3,69 +3,64 @@ package com.easthot.exam.demo.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.easthot.exam.demo.service.ArticleService;
 import com.easthot.exam.vo.Article;
 
 @Controller
 public class UserArticleController {
 	
-	private int articlesLastId;
-	
-	private List<Article> articles;
-	
-	public UserArticleController() {
+	@Autowired
+	private ArticleService as;
 		
-		articlesLastId = 0;
-		articles = new ArrayList<>();
-	}
 	
-
-	
-	
-	@RequestMapping("/usr/article/home")
-	@ResponseBody
-	public String homeArticle() {
-		
-		return "여긴 article 홈입니다.";
-	}
-	
+	// 게시글 추가하기
 	@RequestMapping("/usr/article/doAdd")
 	@ResponseBody
 	public Article doAdd(String title, String body) {
 		
-		int id = articlesLastId + 1;
-		Article article = new Article(id, title, body);
-		
-		articles.add(article);
-		
-		articlesLastId = id;
-		
-		return article;		
+		return as.doAdd(title, body);
 		
 	}
 
 	
+	// 게시글 전체 보기
 	@RequestMapping("/usr/article/getArticles")
 	@ResponseBody
 	public List<Article> getArticles() {
 		
-		return articles;		
+		return as.getArticles();		
 		
 	}
 	
+	// 게시글 하나 선택 상세 보기
+	@RequestMapping("/usr/article/selectArticle")
+	@ResponseBody
+	public Article selectArticle(int id) {
+		
+		return as.selectArticle(id);
+	}
+	
+	
+	// 게시글 삭제 하기
 	@RequestMapping("/usr/article/doDelete")
 	@ResponseBody
 	public String doDelete(int id) {
-	    for (int i = 0; i < articles.size(); i++) {
-	        if (articles.get(i).getId() == id) {
-	            articles.remove(i);
-	            return id + "번 글이 삭제되었습니다.";
-	        }
-	    }
-	    return id + "번 글이 존재하지 않습니다.";
+		
+		return as.doDelete(id);
+	}
+	
+	
+	// 게시글 수정 하기
+	@RequestMapping("/usr/article/doModify")
+	@ResponseBody
+	public String doModify(int id, String title, String body) {
+		
+		return as.doModify(id, title, body);	
 	}
 		
 
