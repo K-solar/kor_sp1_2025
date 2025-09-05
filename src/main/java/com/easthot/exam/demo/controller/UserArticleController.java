@@ -40,8 +40,11 @@ public class UserArticleController {
 	// 게시글 하나 선택 상세 보기
 	@RequestMapping("/usr/article/selectArticle")
 	@ResponseBody
-	public Article selectArticle(int id) {
+	public Object selectArticle(int id) {
 		
+		if (as.selectArticle(id) == null) {
+			return "그런 게시물은 존재하지 않습니다.";
+		}
 		return as.selectArticle(id);
 	}
 	
