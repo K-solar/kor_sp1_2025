@@ -36,7 +36,6 @@ public class ArticleRepository {
 	}
 
 	private List<Article> articles;
-	
 
 	
 	

@@ -65,7 +65,6 @@ public class UserArticleController {
 		
 		return as.doModify(id, title, body);	
 	}
-		
 
 }
  
